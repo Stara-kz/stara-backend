@@ -1,0 +1,30 @@
+<!--index.html-->
+
+<!--Embed the header.html template-->
+{{ template "header.html" .}}
+
+<div class="album py-4 bg-light">
+    <div class="container">  
+        <div class="row">
+            <!--Loop over the list of videos -->        
+            {{range .fields }}        
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">        
+                        <div class="card-body">
+                            <img width="300" height="200" 
+                            src="https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vdGJhbGwlMjBmaWVsZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                            frameborder="0" allowfullscreen></img>    
+                            <p class="card-text">
+                                <h4>{{.Name}}</h4>
+                                <p>{{.Description}}</p>
+                            </p>
+                        </div>
+                    </div>
+                </div>        
+            {{end}}
+        </div>          
+    </div>
+</div>
+
+<!--Embed the footer.html template-->
+{{ template "footer.html" .}}
