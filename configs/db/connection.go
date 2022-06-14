@@ -20,8 +20,10 @@ func NewDatabaseConnection() *gorm.DB {
 
 	err = db.AutoMigrate(
 		&models.EntityUsers{},
-		&models.EntityBooks{},
 		&models.EntityCities{},
+		&models.EntityBooks{},
+		&models.EntityUserBook{},
+		&models.EntityUserCity{},
 	)
 
 	AccountsDataMigrator(db)

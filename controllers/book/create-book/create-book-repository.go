@@ -1,6 +1,8 @@
 package createBookController
 
 import (
+	"fmt"
+
 	model "github.com/KadirbekSharau/bookswap-backend/models"
 	"gorm.io/gorm"
 )
@@ -19,40 +21,52 @@ func NewRepository(db *gorm.DB) *repository {
 
 func (r *repository) CreateBookRepository(input *InputCreateBook) (*model.EntityBooks, string) {
 
-	var city model.EntityCities
+	var cityUser model.EntityUserCity
 	var books model.EntityBooks
-	//var users model.EntityUsers
+	var userBooks model.EntityUserBook
 	db := r.db.Model(&books)
 	errorCode := make(chan string, 1)
 
-	checkBookExist := db.Debug().Select("*").Where("name = ? && isbn = ? && authors = ?", input.Name, input.Isbn, input.Authors).Find(&books)
+	books.Name = input.Name
+	books.Isbn = input.Isbn
+	books.Authors = input.Authors
+
+	checkBookExist := db.Debug().Select("*").Where(&books).Find(&books)
 
 	if checkBookExist.RowsAffected > 0 {
-		errorCode <- "CREATE_FIELD_CONFLICT_409"
+		errorCode <- "CREATE_BOOK_CONFLICT_409"
 		return &books, <-errorCode
 	}
 
-	checkCityExists := db.Debug().Preload("Users.ID").Where("id = ?", input.UserID).Find(&city)
+	checkCityExists := r.db.Model(&cityUser).Debug().Select("*").Where("user_id = ?", input.UserID).Find(&cityUser)
 
-	if checkCityExists.RowsAffected > 0 {
-		errorCode <- "CREATE_FIELD_CONFLICT_409"
+	if checkCityExists.RowsAffected < 1 {
+		errorCode <- "CREATE_BOOK_CONFLICT_404"
 		return &books, <-errorCode
 	}
 
 
 	books.Name = input.Name
-	books.Authors = input.Authors
-	books.ContentDescription = input.ContentDescription
-	books.Isbn = input.Isbn
-	books.PhotoUrl = input.PhotoUrl
-	books.BookConditionDescription = input.BookConditionDescription
-	books.Condition = input.Condition
 	books.Availability = true
-	books.CityID = city.ID
+	books.CityID = cityUser.CityID
 	addNewBook := db.Debug().Create(&books)
 
-	//checkOwnershipExists := db.Debug().Preload("Books.ID").Where("id = ?", input.UserID).Find(&users)
+	fmt.Println(books)
 
+	userBooks.UserID = input.UserID
+	userBooks.BookID = books.ID
+
+	checkOwnershipExists := db.Model(&userBooks).Debug().Select("*").Where(&userBooks).Find(&userBooks)
+	if checkOwnershipExists.RowsAffected > 0 {
+		errorCode <- "CREATE_BOOK_CONFLICT_404"
+		return &books, <-errorCode
+	}
+
+	userBooks.UserID = input.UserID
+	userBooks.BookID = books.ID
+	fmt.Println(userBooks)
+
+	r.db.Model(&userBooks).Debug().Create(&userBooks)
 
 	db.Commit()
 

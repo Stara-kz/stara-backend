@@ -18,8 +18,20 @@ type EntityUsers struct {
 	Active    bool   `gorm:"type:bool;default:false"`
 	AvatarUrl string `gorm:"type:varchar"`
 	IsAdmin    bool   `gorm:"type:bool;default:false"`
-	Cities *[]EntityCities `gorm:"many2many:user_cities;"`
-	Books *[]EntityBooks `gorm:"many2many:user_books;"`
+	UserCities []EntityUserCity `gorm:"foreignKey:UserID"`
+	UserBooks []EntityUserBook `gorm:"foreignKey:UserID"`
+}
+
+type EntityUserCity struct {
+	gorm.Model
+	UserID uint
+	CityID uint
+}
+
+type EntityUserBook struct {
+	gorm.Model
+	UserID uint
+	BookID uint
 }
 
 func (entity *EntityUsers) BeforeCreate(db *gorm.DB) error {

@@ -9,8 +9,9 @@
 [GIN-debug] POST   /api/v1/auth/user/register --> github.com/KadirbekSharau/bookswap-backend/handlers/auth/register.Handler.ActiveUserRegisterHandler-fm (4 handlers)
 [GIN-debug] GET    /api/v1/book/:id          --> github.com/KadirbekSharau/bookswap-backend/handlers/book/get-book.Handler.GetBookByIdHandler-fm (5 handlers)
 [GIN-debug] POST   /api/v1/book/             --> github.com/KadirbekSharau/bookswap-backend/handlers/book/create-book.Handler.CreateBookHandler-fm (5 handlers)
+[GIN-debug] PUT    /api/v1/user/info         --> github.com/KadirbekSharau/bookswap-backend/handlers/user/update-user.Handler.UpdateUserInfoHandler-fm (5 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
 [GIN-debug] redirecting request 307: /api/v1/book/ --> /api/v1/book/
-[GIN] 2022/06/14 - 19:42:40 | 500 |   21.683542ms |             ::1 | POST     "/api/v1/book/"
+[GIN] 2022/06/15 - 03:22:18 | 201 |   20.877084ms |             ::1 | POST     "/api/v1/book/"

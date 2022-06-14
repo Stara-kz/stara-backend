@@ -15,6 +15,6 @@ type EntityBooks struct {
 	BookConditionDescription string `gorm:"type:varchar"`
 	Condition uint `gorm:"type:varchar"`
 	Availability    bool   `gorm:"type:bool;default:true"`
-	Users *[]EntityUsers `gorm:"many2many:user_books;"`
+	UserBooks []EntityUserBook `gorm:"foreignKey:BookID"`
 	CityID uint
 }

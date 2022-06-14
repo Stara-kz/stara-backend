@@ -38,7 +38,7 @@ func (h *handler) CreateBookHandler(ctx *gin.Context) {
 		util.ValidatorErrorResponse(ctx, http.StatusUnauthorized, http.MethodPost, "user not found")
 		return
 	} else {
-		input.UserID = val.(uint)
+		input.UserID = uint(val.(float64))
 	}
 
 	config := util.ErrorConfig{
@@ -61,12 +61,16 @@ func (h *handler) CreateBookHandler(ctx *gin.Context) {
 	_, errCreateField := h.service.CreateBookService(&input)
 
 	switch errCreateField {
-	case "CREATE_FIELD_CONFLICT_409":
-		util.APIResponse(ctx, "Name field already exist", http.StatusConflict, http.MethodPost, nil)
+	case "CREATE_BOOK_CONFLICT_409":
+		util.APIResponse(ctx, "Name Book already exist", http.StatusConflict, http.MethodPost, nil)
 		return
 
-	case "CREATE_FIELD_FAILED_403":
-		util.APIResponse(ctx, "Create new field account failed", http.StatusForbidden, http.MethodPost, nil)
+	case "CREATE_BOOK_FAILED_403":
+		util.APIResponse(ctx, "Create new book account failed", http.StatusForbidden, http.MethodPost, nil)
+		return
+
+	case "CREATE_BOOK_CONFLICT_404":
+		util.APIResponse(ctx, "Book data couldn't be found", http.StatusNotFound, http.MethodPost, nil)
 		return
 
 	default:

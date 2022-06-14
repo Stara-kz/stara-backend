@@ -13,11 +13,11 @@ type InputCreateBook struct {
 }
 
 type InputUserBook struct {
-	UserID string
-	BookID string
+	UserID uint
+	BookID uint
 }
 
 type InputUserCity struct {
-	UserID string
-	CityID string
+	UserID uint
+	CityID uint
 }
