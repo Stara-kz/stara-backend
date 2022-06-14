@@ -38,6 +38,7 @@ require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.8.1
 	github.com/joho/godotenv v1.4.0
+	github.com/lib/pq v1.10.6
 	github.com/sendgrid/rest v2.6.9+incompatible
 	github.com/sendgrid/sendgrid-go v3.11.1+incompatible
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e

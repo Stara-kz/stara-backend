@@ -9,12 +9,17 @@ import (
 
 type EntityUsers struct {
 	gorm.Model
-	Fullname string `gorm:"type:varchar(255)"`
-	PhoneNumber string `gorm:"type:varchar(12)"`
-	Email string `gorm:"type:varchar(255);unique;not null"`
+	Name string `gorm:"type:varchar(30)"`
+	Surname string `gorm:"type:varchar(30)"`
+	Phone string `gorm:"type:varchar(12)"`
+	Email string `gorm:"type:varchar(50);unique;not null"`
 	Password  string `gorm:"type:varchar(255)"`
+	Address string `gorm:"type:varchar(255)"`
 	Active    bool   `gorm:"type:bool;default:false"`
+	AvatarUrl string `gorm:"type:varchar"`
 	IsAdmin    bool   `gorm:"type:bool;default:false"`
+	Cities *[]EntityCities `gorm:"many2many:user_cities;"`
+	Books *[]EntityBooks `gorm:"many2many:user_books;"`
 }
 
 func (entity *EntityUsers) BeforeCreate(db *gorm.DB) error {

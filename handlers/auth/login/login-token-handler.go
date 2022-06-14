@@ -9,7 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var roles = map[string]int{"user": 1, "admin": 2, "organization":3, "moderator":4} 
+var roles = map[string]int{"user": 1, "admin": 2} 
 const secret_key string = "JWT_SECRET"
 const expTime = 24*60*1
 

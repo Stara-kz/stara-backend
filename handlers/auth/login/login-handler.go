@@ -3,10 +3,9 @@ package loginHandler
 import (
 	"net/http"
 
+	loginAuth "github.com/KadirbekSharau/bookswap-backend/controllers/auth/login"
 	util "github.com/KadirbekSharau/bookswap-backend/util"
 	"github.com/gin-gonic/gin"
-	loginAuth "github.com/KadirbekSharau/bookswap-backend/controllers/auth/login"
-
 )
 
 type Handler interface {

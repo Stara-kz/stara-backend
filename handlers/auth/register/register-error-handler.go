@@ -13,11 +13,6 @@ var config = util.ErrorConfig{
 	Options: []util.ErrorMetaConfig{
 		{
 			Tag:     "required",
-			Field:   "Fullname",
-			Message: "fullname is required on body",
-		},
-		{
-			Tag:     "required",
 			Field:   "Email",
 			Message: "email is required on body",
 		},
@@ -61,7 +56,7 @@ func ErrUserRegisterHandler(resultRegister *models.EntityUsers, ctx *gin.Context
 			return
 		}
 
-		_, errSendMail := util.SendGridMail(resultRegister.Fullname, resultRegister.Email, "Activation Account", "template_register", accessToken)
+		_, errSendMail := util.SendGridMail("", resultRegister.Email, "Activation Account", "template_register", accessToken)
 
 		if errSendMail != nil {
 			defer logrus.Error(errSendMail.Error())

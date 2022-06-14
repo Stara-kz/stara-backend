@@ -6,7 +6,6 @@ import (
 
 type Service interface {
 	ActiveUserRegisterService(input *InputUserRegister) (*model.EntityUsers, string)
-	InactiveUserRegisterService(input *InputUserRegister) (*model.EntityUsers, string)
 	AdminRegisterService(input *InputUserRegister) (*model.EntityUsers, string)
 }
 
@@ -22,7 +21,6 @@ func NewServiceRegister(repository Repository) *service {
 func (s *service) ActiveUserRegisterService(input *InputUserRegister) (*model.EntityUsers, string) {
 
 	users := model.EntityUsers{
-		Fullname: input.Fullname,
 		Email:    input.Email,
 		Password: input.Password,
 	}
@@ -31,25 +29,12 @@ func (s *service) ActiveUserRegisterService(input *InputUserRegister) (*model.En
 	return resultRegister, errRegister
 }
 
-/* Inactive User Registration Service */
-func (s *service) InactiveUserRegisterService(input *InputUserRegister) (*model.EntityUsers, string) {
-
-	users := model.EntityUsers{
-		Fullname: input.Fullname,
-		Email:    input.Email,
-		Password: input.Password,
-	}
-
-	resultRegister, errRegister := s.repository.InactiveUserRegisterRepository(&users)
-
-	return resultRegister, errRegister
-}
-
 /* Admin Registration Service */
 func (s *service) AdminRegisterService(input *InputUserRegister) (*model.EntityUsers, string) {
 
 	users := model.EntityUsers{
-		Fullname: input.Fullname,
+		Name: input.Name,
+		Surname: input.Surname,
 		Email:    input.Email,
 		Password: input.Password,
 	}
