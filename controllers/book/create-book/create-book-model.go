@@ -7,7 +7,7 @@ type InputCreateBook struct {
 	Isbn string `json:"isbn"`
 	PhotoUrl string `json:"photo_url"`
 	BookConditionDescription string `json:"book_condition_description" validate:"required"`
-	Condition uint
+	Condition uint `json:"condition" validate:"required"`
 	UserID uint `json:"user_id" validate:"required"`
 	CityID uint `json:"city_id" validate:"required"`
 }

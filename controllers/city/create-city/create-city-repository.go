@@ -18,6 +18,7 @@ func NewCreateCityRepository(db *gorm.DB) *repository {
 }
 
 func (r *repository) CreateCityRepository(input *models.EntityCities) (*models.EntityCities, string) {
+	var userCity models.EntityUserCity
 	var city models.EntityCities
 	db := r.db.Model(&city)
 	errorCode := make(chan string, 1)
@@ -31,8 +32,13 @@ func (r *repository) CreateCityRepository(input *models.EntityCities) (*models.E
 
 	city.Name = input.Name
 	
-
 	addNewCity := db.Debug().Create(&city)
+
+	userCity.UserID = 1
+	userCity.CityID = city.ID
+	
+	r.db.Model(&userCity).Debug().Create(&userCity)
+
 	db.Commit()
 
 	if addNewCity.Error != nil {

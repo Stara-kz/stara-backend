@@ -13,7 +13,7 @@ type EntityBooks struct {
 	Isbn string `gorm:"type:varchar(50)"`
 	PhotoUrl  string `gorm:"type:varchar"`
 	BookConditionDescription string `gorm:"type:varchar"`
-	Condition uint `gorm:"type:varchar"`
+	Condition uint 
 	Availability    bool   `gorm:"type:bool;default:true"`
 	UserBooks []EntityUserBook `gorm:"foreignKey:BookID"`
 	CityID uint

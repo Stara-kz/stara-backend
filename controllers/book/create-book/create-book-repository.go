@@ -47,6 +47,12 @@ func (r *repository) CreateBookRepository(input *InputCreateBook) (*model.Entity
 
 
 	books.Name = input.Name
+	books.Authors = input.Authors
+	books.ContentDescription = input.ContentDescription
+	books.Isbn = input.Isbn
+	books.BookConditionDescription = input.BookConditionDescription
+	books.PhotoUrl = input.PhotoUrl
+	books.Condition = input.Condition
 	books.Availability = true
 	books.CityID = cityUser.CityID
 	addNewBook := db.Debug().Create(&books)
