@@ -5,7 +5,6 @@ import (
 
 	getBookController "github.com/KadirbekSharau/bookswap-backend/controllers/book/get-book"
 	"github.com/KadirbekSharau/bookswap-backend/util"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,22 +23,6 @@ func NewHandler(service getBookController.Service) *handler {
 func (h *handler) GetBookByIdHandler(ctx *gin.Context) {
 
 	var input getBookController.InputGetBook
-
-	keys, ok := ctx.Get("user")
-
-	if !ok {
-		util.ValidatorErrorResponse(ctx, http.StatusUnauthorized, http.MethodPost, "user not found")
-		return	
-	}
-
-	user_keys := keys.(jwt.MapClaims)
-	if val, ok := user_keys["id"]; !ok {
-		util.ValidatorErrorResponse(ctx, http.StatusUnauthorized, http.MethodPost, "user not found")
-		return
-	} else {
-		input.UserID = val.(string)
-	}
-
 	input.ID = ctx.Params.ByName("id")
 
 	config := util.ErrorConfig{
